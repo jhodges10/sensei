@@ -93,8 +93,11 @@ class GovernanceObject(BaseModel):
                 purged.delete_instance(recursive=True, delete_nullable=True)
 
             for item in golist.values():
-                (go, subobj) = self.import_gobject_from_dashd(dashd, item)
-
+                try:
+                    (go, subobj) = self.import_gobject_from_dashd(dashd, item)
+                except Exception as e:
+                    printdbg("Chances are this was a Superblock: %s" % e)
+                    continue
         except Exception as e:
             printdbg("Got an error upon import: %s" % e)
 
@@ -115,6 +118,8 @@ class GovernanceObject(BaseModel):
         object_hash = rec['Hash']
         object_string = rec['DataString'][13:-2]
         object_dikt = simplejson.loads(object_string)
+
+        printdbg(object_dikt)
 
         gobj_dict = {
             'object_hash': object_hash,
