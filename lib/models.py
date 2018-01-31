@@ -119,8 +119,6 @@ class GovernanceObject(BaseModel):
         object_string = rec['DataString'][13:-2]
         object_dikt = simplejson.loads(object_string)
 
-        printdbg(object_dikt)
-
         gobj_dict = {
             'object_hash': object_hash,
             'object_fee_tx': rec['CollateralHash'],
