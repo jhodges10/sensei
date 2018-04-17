@@ -20,6 +20,7 @@ def get_dash_conf():
         home = os.environ.get('HOME')
         dash_conf = os.path.join(home, ".dashcore/dash.conf")
     elif sys.platform == 'darwin':
+        home = os.environ.get('HOME')
         dash_conf = os.path.join(home, "Library/Application Support/DashCore/dash.conf")
     else:
         dash_conf = os.path.abspath("G:\Dash\DashCore\dash.conf")
